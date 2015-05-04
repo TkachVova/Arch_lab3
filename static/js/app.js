@@ -65,7 +65,7 @@
                 "ingridients":pizzaing,
                 "price":pizzaprice
             }
-            alert(JSON.stringify(frien));
+           // alert(JSON.stringify(frien));
             $http.put('/pizzas/'+frien.id, JSON.stringify(frien)).success(function () {
                 alert("Edited Successfully!!");
                 frien.editMode = false;

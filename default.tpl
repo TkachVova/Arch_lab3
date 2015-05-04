@@ -18,7 +18,7 @@
                 <h2>
                 <a href="/" style="text-decoration:none">
                     <img ng-src="Pizza_Hut_logo.png"  height="40px" width="40px" alt="logo" />
-                </a>Pizza Hut
+                </a>Pizza Hut CRUD
                 </h2>
             </div>
             <div style="clear:both"></div>
@@ -33,7 +33,7 @@
         <div class="row">
             <div class="col-md-12">
                 <strong class="error" ng-bind="error"></strong>
-                <p data-ng-hide="addMode"><a data-ng-click="toggleAdd()" href="javascript:;" class="btn btn-primary">Add New</a></p>
+                <p data-ng-hide="addMode"><a data-ng-click="toggleAdd()" href="javascript:;" class="btn btn-primary">Add Pizza</a></p>
                 <form name="addPizza" data-ng-show="addMode" style="width:600px;margin:0px auto;">
                     <div class="form-group">
                         <label for="cid" class="col-sm-2 control-label">ID:</label>
@@ -78,7 +78,8 @@
         </div>
        <div class="container span11 offset1">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-1"></div>
+            <div class="col-md-11">
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover" style="width:800px">
                         <tr>
