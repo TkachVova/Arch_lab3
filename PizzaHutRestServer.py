@@ -1,7 +1,7 @@
 __author__ = 'vladymyr'
 import json
 from bottle import route, run, request, template, static_file
-from CreatePizzaHutDb import GetPizzas, GetPizza, RemovePizza
+from CreatePizzaHutDb import GetPizzas, GetPizza, RemovePizza, AddPizza, UpdatePizza
 
 @route('/')
 def default():
@@ -12,7 +12,7 @@ def default():
 #    print('inside home')
 #    return static_file('home.html', 'static/templates')
 
-@route('/pizzas/')
+@route('/pizzas/', method="GET")
 def pizzas_list():
     pizzaList = []
     for p in GetPizzas():
@@ -23,6 +23,14 @@ def pizzas_list():
         pizza["price"] = p["price"]
         pizzaList.append(pizza)
     return {"pizzas":pizzaList}
+
+
+@route('/pizzas/', method="POST")
+def pizzas_add():
+    xml = json.loads(request.body.read( ))
+    print (xml)
+    AddPizza(xml)
+    return {"success": True}
 
 @route('/pizzas/<id>', method='GET')
 def pizza_show( id ):
@@ -37,17 +45,16 @@ def pizza_show( id ):
 
 @route('/pizzas/<id>', method='DELETE' )
 def recipe_delete( id="1" ):
-    i = int(id)
-    RemovePizza(i)
-    return { "success" : False, "error" : "delete not implemented yet" }
+    RemovePizza(id)
+    return { "success" : True}
 
 @route('/pizzas/<id>', method='PUT')
 def pizza_save( id="1" ):
-    xml = request.forms.get( "xml" )
-    if "" != id and "" != xml:
-        return { "success" : True, "path" : id }
-    else:
-        return { "success" : False, "error" : "save called without a filename or content" }
+    print(id)
+    xml = json.loads(request.body.read())
+    UpdatePizza(id, xml)
+    print (xml)
+    return { "success": True}
 
 
 # Static Routes

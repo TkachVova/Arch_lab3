@@ -59,6 +59,13 @@ def GetPizza(id):
 def RemovePizza(id):
     pizzas.delete_one({"id":id})
 
+def AddPizza(pizza):
+    pizzas.insert_one(pizza)
+
+def UpdatePizza(id, pizza):
+    pizzas.replace_one({"id":id}, pizza)
+
+
 
 
 #run 1 time

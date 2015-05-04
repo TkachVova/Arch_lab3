@@ -38,25 +38,25 @@
                     <div class="form-group">
                         <label for="cid" class="col-sm-2 control-label">ID:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="cid" placeholder="please enter id" data-ng-model="newpizza.Id" required />
+                            <input type="text" class="form-control" id="cid" placeholder="please enter pizza id" data-ng-model="newpizza.id" required />
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="cname" class="col-sm-2 control-label">Name:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="cname" placeholder="please enter your name" data-ng-model="newpizza.name" required />
+                            <input type="text" class="form-control" id="cname" placeholder="please enter pizza name" data-ng-model="newpizza.name" required />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="address" class="col-sm-2 control-label">Address:</label>
+                        <label for="address" class="col-sm-2 control-label">Ingridients:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="address" placeholder="please enter your address" data-ng-model="newpizza.ingridients" required />
+                            <input type="text" class="form-control" id="address" placeholder="please enter pizza ingridients" data-ng-model="newpizza.ingridients" required />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="city" class="col-sm-2 control-label">City:</label>
+                        <label for="city" class="col-sm-2 control-label">Price:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="city" placeholder="please enter your city" data-ng-model="newpizza.price" required />
+                            <input type="text" class="form-control" id="city" placeholder="please enter pizza price" data-ng-model="newpizza.price" required />
                         </div>
                     </div>
                     <br />
@@ -76,6 +76,7 @@
                 <br />
             </div>
         </div>
+       <div class="container span11 offset1">
         <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive">
@@ -88,7 +89,11 @@
                             <th></th>
                         </tr>
                         <tr data-ng-repeat="pizza in pizzas">
-                            <td><strong data-ng-hide="pizza.editMode" ng-bind="pizza.id"></strong></td>
+                            <td>
+                                <strong data-ng-hide="pizza.editMode" ng-bind="pizza.id"></strong>
+                                <input data-ng-show="pizza.editMode" type="text" data-ng-model="pizza.id" />
+                            </td>
+
                             <td>
                                 <p data-ng-hide="pizza.editMode" ng-bind="pizza.name"></p>
                                 <input data-ng-show="pizza.editMode" type="text" data-ng-model="pizza.name" />
@@ -102,8 +107,8 @@
                                 <input data-ng-show="pizza.editMode" type="text" data-ng-model="pizza.price" />
                             </td>
                             <td>
-                                <p data-ng-hide="pizza.editMode"><a data-ng-click="toggleEdit(pizza)" href="javascript:;">Edit</a> | <a data-ng-click="deletep(pizza)" href="javascript:;">Delete</a></p>
-                                <p data-ng-show="pizza.editMode"><a data-ng-click="save(pizza)" href="javascript:;">Save</a> | <a data-ng-click="toggleEdit(pizza)" href="javascript:;">Cancel</a></p>
+                                <p data-ng-hide="pizza.editMode"><a data-ng-click="toggleEdit(pizza)" href="javascript:;">Edit</a> | <a data-ng-click="deletep(pizza.id)" href="javascript:;">Delete</a></p>
+                                <p data-ng-show="pizza.editMode"><a data-ng-click="save(pizza.id, pizza.name, pizza.ingridients, pizza.price);toggleEdit(pizza)" href="javascript:;">Save</a> | <a data-ng-click="toggleEdit(pizza)" href="javascript:;">Cancel</a></p>
                             </td>
                         </tr>
                     </table>
@@ -111,7 +116,7 @@
                 </div>
             </div>
         </div>
-
+       </div>
     </div>
                 </div>
             </div>

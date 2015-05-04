@@ -15,19 +15,21 @@
 
         //declare variable for mainain ajax load and entry or edit mode
         $scope.test = "HelloWorld"
-        $scope.loading = true;
         $scope.addMode = false;
 
         $http.get('/pizzas/').success(function (data) {
             $scope.pizzas = data.pizzas;
-            $scope.loading = false;
         })
         .error(function () {
             $scope.error = "An Error has occured while loading pizzas!";
-            $scope.loading = false;
         });
 
-
+        $scope.newpizza = {
+            "id":"",
+            "name":"",
+            "ingridients":"",
+            "price":""
+        }
 
 
         //by pressing toggleEdit button ng-click in html, this method will be hit
@@ -40,52 +42,51 @@
             $scope.addMode = !$scope.addMode;
         };
 
-        //Inser Pizza
+        //Insert Pizza
         $scope.add = function () {
-            $scope.loading = true;
-            $http.post('/pizzas/', this.newpizza).success(function (data) {
+            //alert($scope.newpizza);
+            //alert(JSON.stringify($scope.newpizza))
+            $http.post('/pizzas/', JSON.stringify($scope.newpizza)).success(function () {
                 alert("Added Successfully!!");
-                $scope.addMode = false;
-                $scope.pizzas.push(data);
-                $scope.loading = false;
-            }).error(function (data) {
-                $scope.error = "An Error has occured while Adding pizza! " + data;
-                $scope.loading = false;
+                $scope.pizzas.push($scope.newpizza);
+
+                $scope.toggleAdd();
+            }).error(function () {
+                $scope.error = "An Error has occured while Adding pizza! " ;
             });
         };
 
         //Edit Pizza
-        $scope.save = function () {
-            alert("Edit");
-            $scope.loading = true;
-            var frien = this.pizza;
-            alert(frien);
-            $http.put('/pizzas/' + frien.Id, frien).success(function (data) {
-                alert("Saved Successfully!!");
+        $scope.save = function (pizzaid, pizzaname, pizzaing, pizzaprice) {
+            //alert("Edit");
+            var frien = {
+                "id": pizzaid,
+                "name":pizzaname,
+                "ingridients":pizzaing,
+                "price":pizzaprice
+            }
+            alert(JSON.stringify(frien));
+            $http.put('/pizzas/'+frien.id, JSON.stringify(frien)).success(function () {
+                alert("Edited Successfully!!");
                 frien.editMode = false;
-                $scope.loading = false;
-            }).error(function (data) {
-                $scope.error = "An Error has occured while Saving pizza! " + data;
-                $scope.loading = false;
+            }).error(function () {
+                $scope.error = "An Error has occured while Saving pizza! ";
             });
         };
 
        //Delete pizza
-        $scope.deletep = function () {
-            $scope.loading = true;
-            var Id = this.pizza.Id;
-            $http.delete('/pizzas/' + Id).success(function (data) {
+        $scope.deletep = function (pizzaid) {
+            //alert(pizzaid);
+            $http.delete('/pizzas/'+pizzaid).success(function () {
                 alert("Deleted Successfully!!");
                 $.each($scope.pizzas, function (i) {
-                    if ($scope.pizzas[i].Id === Id) {
+                    if ($scope.pizzas[i].id === pizzaid) {
                         $scope.pizzas.splice(i, 1);
                         return false;
                     }
                 });
-                $scope.loading = false;
-            }).error(function (data) {
-                $scope.error = "An Error has occured while Saving pizza! " + data;
-                $scope.loading = false;
+            }).error(function () {
+                $scope.error = "An Error has occured while Deleting pizza! ";
             });
         };
 
