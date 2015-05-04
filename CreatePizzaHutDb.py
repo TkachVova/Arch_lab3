@@ -54,8 +54,12 @@ def GetPizzas():
     return pizzas.find()
 
 def GetPizza(id):
-    _id = int(id)
     return pizzas.find_one({"id":id})
+
+def RemovePizza(id):
+    pizzas.delete_one({"id":id})
+
+
 
 #run 1 time
 #CreatePizzas()
