@@ -1,7 +1,7 @@
 __author__ = 'vladymyr'
 import json
 from bottle import route, run, request, template, static_file
-from CreatePizzaHutDb import GetPizzas, GetPizza, RemovePizza, AddPizza, UpdatePizza
+from CreatePizzaHutDb import GetPizzas, GetPizza, RemovePizza, AddPizza, UpdatePizza, plus
 
 @route('/')
 def default():
@@ -57,6 +57,10 @@ def pizza_save( id="1" ):
     return { "success": True}
 
 
+def test(a, b):
+    return plus(a,b)
+
+
 # Static Routes
 @route('/<filename:re:.*\.js>')
 def javascripts(filename):
@@ -78,6 +82,6 @@ def images(filename):
 def fonts(filename):
     return static_file(filename, root='static/fonts')
 
-run(host='localhost', port=8080, debug=True)
+#run(host='localhost', port=8080, debug=True)
 
 

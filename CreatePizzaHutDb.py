@@ -65,7 +65,8 @@ def AddPizza(pizza):
 def UpdatePizza(id, pizza):
     pizzas.replace_one({"id":id}, pizza)
 
-
+def plus(a, b):
+    return a+b
 
 
 #run 1 time

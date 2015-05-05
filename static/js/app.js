@@ -5,11 +5,6 @@
     var pizzaApp = angular.module('app', ['ngRoute']);
     pizzaApp.controller('pizzaController', ['$scope', '$http', pizzaController]);
 
-
-
-
-
-
     //angularjs controller method
     function pizzaController($scope, $http, pizzaService) {
 
