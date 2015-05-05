@@ -1,7 +1,9 @@
 __author__ = 'vladymyr'
 import json
 from bottle import route, run, request, template, static_file
-from CreatePizzaHutDb import GetPizzas, GetPizza, RemovePizza, AddPizza, UpdatePizza, plus
+from CreatePizzaHutDb import GetPizzas, GetPizza, RemovePizza, AddPizza, UpdatePizza
+import CreatePizzaHutDb
+import bottle
 
 @route('/')
 def default():
@@ -15,7 +17,7 @@ def default():
 @route('/pizzas/', method="GET")
 def pizzas_list():
     pizzaList = []
-    for p in GetPizzas():
+    for p in CreatePizzaHutDb.GetPizzas():
         pizza = {}
         pizza["id"] = p["id"]
         pizza["name"] = p["name"]
@@ -27,15 +29,15 @@ def pizzas_list():
 
 @route('/pizzas/', method="POST")
 def pizzas_add():
-    xml = json.loads(request.body.read( ))
+    xml = json.loads(bottle.request.body.read( ))
     print (xml)
-    AddPizza(xml)
+    CreatePizzaHutDb.AddPizza(xml)
     return {"success": True}
 
 @route('/pizzas/<id>', method='GET')
 def pizza_show( id ):
     i = int(id)
-    p = GetPizza(i)
+    p = CreatePizzaHutDb.GetPizza(i)
     pizza = {}
     pizza["id"] = p["id"]
     pizza["name"] = p["name"]
@@ -44,8 +46,8 @@ def pizza_show( id ):
     return {"pizza" : pizza}
 
 @route('/pizzas/<id>', method='DELETE' )
-def recipe_delete( id="1" ):
-    RemovePizza(id)
+def pizza_delete( id="1" ):
+    CreatePizzaHutDb.RemovePizza(id)
     return { "success" : True}
 
 @route('/pizzas/<id>', method='PUT')
@@ -58,7 +60,7 @@ def pizza_save( id="1" ):
 
 
 def test(a, b):
-    return plus(a,b)
+    return CreatePizzaHutDb.add(a,b)
 
 
 # Static Routes
@@ -82,6 +84,6 @@ def images(filename):
 def fonts(filename):
     return static_file(filename, root='static/fonts')
 
-#run(host='localhost', port=8080, debug=True)
+run(host='localhost', port=8080, debug=True)
 
 
