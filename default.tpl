@@ -38,7 +38,7 @@
                     <div class="form-group">
                         <label for="cid" class="col-sm-2 control-label">ID:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="cid" placeholder="please enter pizza id" data-ng-model="newpizza.id" required />
+                            <input type="text" class="form-control" id="cid" placeholder="please enter pizza id" data-ng-model="newpizza.id" required disabled/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -91,8 +91,8 @@
                         </tr>
                         <tr data-ng-repeat="pizza in pizzas">
                             <td>
-                                <strong data-ng-hide="pizza.editMode" ng-bind="pizza.id"></strong>
-                                <input data-ng-show="pizza.editMode" type="text" data-ng-model="pizza.id" />
+                                <strong data-ng-hide="False" ng-bind="pizza.id"></strong>
+                                <input data-ng-show="False" type="text" data-ng-model="pizza.id"/>
                             </td>
 
                             <td>

@@ -47,14 +47,16 @@ def pizza_show( id ):
 
 @route('/pizzas/<id>', method='DELETE' )
 def pizza_delete( id="1" ):
-    CreatePizzaHutDb.RemovePizza(id)
+    i = int(id)
+    CreatePizzaHutDb.RemovePizza(i)
     return { "success" : True}
 
 @route('/pizzas/<id>', method='PUT')
 def pizza_save( id="1" ):
+    i = int(id)
     print(id)
     xml = json.loads(request.body.read())
-    UpdatePizza(id, xml)
+    UpdatePizza(i, xml)
     print (xml)
     return { "success": True}
 

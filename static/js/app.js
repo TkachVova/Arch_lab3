@@ -34,6 +34,15 @@
 
         //by pressing toggleAdd button ng-click in html, this method will be hit
         $scope.toggleAdd = function () {
+            var max = 0;
+            for(var i = 0; i < $scope.pizzas.length; i++)
+            {
+                if (max < $scope.pizzas[i].id)
+                {
+                    max = $scope.pizzas[i].id;
+                }
+            }
+            $scope.newpizza.id = max + 1;
             $scope.addMode = !$scope.addMode;
         };
 
@@ -43,9 +52,19 @@
             //alert(JSON.stringify($scope.newpizza))
             $http.post('/pizzas/', JSON.stringify($scope.newpizza)).success(function () {
                 alert("Added Successfully!!");
-                $scope.pizzas.push($scope.newpizza);
+                var p = {
+                    "id": $scope.newpizza.id,
+                    "name":$scope.newpizza.name,
+                    "ingridients":$scope.newpizza.ingridients,
+                    "price":$scope.newpizza.price
+                }
+                $scope.pizzas.push(p);
 
                 $scope.toggleAdd();
+                $scope.newpizza.id = "";
+                $scope.newpizza.name = "";
+                $scope.newpizza.ingridients = "";
+                $scope.newpizza.price = "";
             }).error(function () {
                 $scope.error = "An Error has occured while Adding pizza! " ;
             });

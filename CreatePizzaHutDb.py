@@ -58,6 +58,7 @@ def GetPizza(id):
 
 def RemovePizza(id):
     pizzas.delete_one({"id":id})
+    print("Deleted "+ str(id))
 
 def AddPizza(pizza):
     pizzas.insert_one(pizza)
@@ -68,10 +69,11 @@ def UpdatePizza(id, pizza):
 def add(x, y):
     return x + y
 
+
 #run 1 time
 #CreatePizzas()
-p = GetPizza(1)
-print(p)
+
+
 for i in GetPizzas():
     print(i)
 print (pizzas.count())
