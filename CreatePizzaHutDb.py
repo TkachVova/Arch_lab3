@@ -66,6 +66,9 @@ def AddPizza(pizza):
 def UpdatePizza(id, pizza):
     pizzas.replace_one({"id":id}, pizza)
 
+def CountPizzas():
+    return pizzas.count()
+
 def add(x, y):
     return x + y
 
